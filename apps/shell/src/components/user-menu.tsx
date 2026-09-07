@@ -45,7 +45,7 @@ export function UserMenu({ user }: { user: User }) {
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem asChild variant="destructive">
+        <DropdownMenuItem asChild className="text-destructive focus:text-destructive">
           <Link to="/logout">
             <LogOut className="size-4" /> Sign out
           </Link>

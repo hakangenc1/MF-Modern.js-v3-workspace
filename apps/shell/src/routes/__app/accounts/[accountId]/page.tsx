@@ -2,7 +2,6 @@ import { Suspense } from "react";
 import { Await, useLoaderData } from "@modern-js/runtime/router";
 import { Helmet } from "@modern-js/runtime/head";
 import type { Account, Page as MockPage, Transaction } from "@bank/mock";
-// @ts-expect-error federated module
 import AccountDetailView, { TransactionsTable } from "accounts/AccountDetailView";
 import { TableSkeleton } from "@bank/ui/patterns/skeletons";
 

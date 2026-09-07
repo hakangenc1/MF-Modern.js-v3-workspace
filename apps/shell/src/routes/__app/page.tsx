@@ -7,7 +7,6 @@ import {
   CreditCard,
   PiggyBank,
   Plus,
-  ShieldCheck,
   TrendingUp,
 } from "lucide-react";
 import {
@@ -17,6 +16,8 @@ import {
   type Account,
   type CashflowPoint,
   type NetWorth,
+  type Payee,
+  type SecurityOverview,
   type SpendingSlice,
   type Transaction,
 } from "@bank/mock";
@@ -32,13 +33,16 @@ import { Badge } from "@bank/ui/components/ui/badge";
 import { Separator } from "@bank/ui/components/ui/separator";
 import { PageHeader, Money } from "@bank/ui/patterns/kit";
 import { ActivityListSkeleton, ChartSkeleton } from "@bank/ui/patterns/skeletons";
-// @ts-expect-error federated module
 import { CashflowCard, RecentActivityCard, SpendingCard } from "accounts/widgets";
+import { QuickTransferCard } from "payments/QuickTransferCard";
+import { SecurityStatusCard } from "security/SecurityStatusCard";
 
 interface DashboardData {
   firstName: string;
   netWorth: NetWorth;
   accounts: Account[];
+  payees: Payee[];
+  security: SecurityOverview;
   cashflow: Promise<CashflowPoint[]>;
   spending: Promise<{ slices: SpendingSlice[]; total: number }>;
   activity: Promise<Transaction[]>;
@@ -57,7 +61,7 @@ function greeting() {
 }
 
 export default function Dashboard() {
-  const { firstName, netWorth, accounts, cashflow, spending, activity } =
+  const { firstName, netWorth, accounts, payees, security, cashflow, spending, activity } =
     useLoaderData() as DashboardData;
 
   return (
@@ -108,21 +112,11 @@ export default function Dashboard() {
               value={formatCurrency(netWorth.liabilities, { compact: true })}
             />
             <Stat label="Accounts" value={String(accounts.length)} />
-            <Stat label="Cards" value="2" />
+            <Stat label="Payees" value={String(payees.length)} />
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base">Quick actions</CardTitle>
-          </CardHeader>
-          <CardContent className="grid gap-2">
-            <QuickAction to="/payments" icon={ArrowLeftRight} label="Send money" />
-            <QuickAction to="/payments/payees" icon={Plus} label="Add a payee" />
-            <QuickAction to="/cards" icon={CreditCard} label="Manage cards" />
-            <QuickAction to="/security/two-factor" icon={ShieldCheck} label="Review 2FA" />
-          </CardContent>
-        </Card>
+        <QuickTransferCard payees={payees} />
       </div>
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -142,10 +136,15 @@ export default function Dashboard() {
         </Suspense>
       </div>
 
-      <div className="mt-6">
-        <Suspense fallback={<CardShell title="Recent activity"><ActivityListSkeleton /></CardShell>}>
-          <Await resolve={activity}>{(d) => <RecentActivityCard data={d} />}</Await>
-        </Suspense>
+      <div className="mt-6 grid gap-6 lg:grid-cols-3">
+        <div className="lg:col-span-2">
+          <Suspense
+            fallback={<CardShell title="Recent activity"><ActivityListSkeleton /></CardShell>}
+          >
+            <Await resolve={activity}>{(d) => <RecentActivityCard data={d} />}</Await>
+          </Suspense>
+        </div>
+        <SecurityStatusCard overview={security} />
       </div>
     </>
   );
@@ -168,24 +167,6 @@ function Stat({ label, value }: { label: string; value: string }) {
       <p className="text-xs text-muted-foreground">{label}</p>
       <p className="text-lg font-semibold tabular-nums">{value}</p>
     </div>
-  );
-}
-
-function QuickAction({
-  to,
-  icon: Icon,
-  label,
-}: {
-  to: string;
-  icon: React.ComponentType<{ className?: string }>;
-  label: string;
-}) {
-  return (
-    <Button asChild variant="outline" className="justify-start">
-      <Link to={to}>
-        <Icon className="size-4" /> {label}
-      </Link>
-    </Button>
   );
 }
 

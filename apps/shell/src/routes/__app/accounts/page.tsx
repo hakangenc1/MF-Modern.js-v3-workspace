@@ -1,6 +1,5 @@
 import { useLoaderData } from "@modern-js/runtime/router";
 import { Helmet } from "@modern-js/runtime/head";
-// @ts-expect-error federated module
 import AccountsView from "accounts/AccountsView";
 
 export default function AccountsPage() {

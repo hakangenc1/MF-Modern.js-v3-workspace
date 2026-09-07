@@ -1,12 +1,28 @@
-import { useFetcher, useLoaderData, Link } from "@modern-js/runtime/router";
+import { useEffect } from "react";
+import {
+  Link,
+  useActionData,
+  useLoaderData,
+  useNavigate,
+  useNavigation,
+  useSubmit,
+} from "@modern-js/runtime/router";
 import { Helmet } from "@modern-js/runtime/head";
 import { DEMO_2FA_CODE } from "@bank/mock";
 import { AuthShell } from "@/components/auth-shell";
-import { TwoFactorChallenge } from "@/components/two-factor-challenge";
-import type { VerifyData } from "./page.data";
+import { TwoFactorChallenge } from "security/TwoFactorChallenge";
+import type { VerifyData, VerifyActionData } from "./page.data";
 
 export default function VerifyRoute() {
   const { email } = useLoaderData() as VerifyData;
+  const actionData = useActionData() as VerifyActionData | undefined;
+  const submit = useSubmit();
+  const navigate = useNavigate();
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    if (actionData?.next) navigate(actionData.next);
+  }, [actionData, navigate]);
 
   return (
     <AuthShell
@@ -27,7 +43,13 @@ export default function VerifyRoute() {
       <Helmet>
         <title>Verify it’s you · Northwind Bank</title>
       </Helmet>
-      <TwoFactorChallenge email={email} demoCode={DEMO_2FA_CODE} />
+      <TwoFactorChallenge
+        email={email}
+        demoCode={DEMO_2FA_CODE}
+        pending={navigation.state !== "idle"}
+        error={actionData?.error}
+        onSubmit={(code: string) => submit({ code }, { method: "post" })}
+      />
     </AuthShell>
   );
 }
