@@ -1,0 +1,31 @@
+{
+  "name": "@bank/payments",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "modern dev",
+    "build": "modern build",
+    "serve": "modern serve",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@bank/mock": "workspace:*",
+    "@bank/ui": "workspace:*",
+    "@modern-js/runtime": "3.5.0",
+    "@module-federation/modern-js-v3": "2.8.2",
+    "lucide-react": "0.469.0",
+    "next-themes": "0.4.6",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "@modern-js/app-tools": "3.5.0",
+    "@modern-js/tsconfig": "3.5.0",
+    "@tailwindcss/postcss": "4.3.3",
+    "@types/node": "22.13.0",
+    "@types/react": "18.3.12",
+    "@types/react-dom": "18.3.1",
+    "tailwindcss": "4.3.3",
+    "typescript": "5.9.3"
+  }
+}

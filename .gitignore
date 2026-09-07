@@ -1,0 +1,14 @@
+node_modules
+dist
+build
+.rsbuild
+.mf
+*.log
+.DS_Store
+.env
+.env.local
+coverage
+*.tsbuildinfo
+.react-router
+.modern-js
+*.local

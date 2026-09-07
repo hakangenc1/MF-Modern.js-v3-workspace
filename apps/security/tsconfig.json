@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "types": ["node", "react", "react-dom"],
+    "baseUrl": "./",
+    "paths": { "@/*": ["./src/*"] }
+  },
+  "include": ["src", "modern.config.ts", "module-federation.config.ts"],
+  "exclude": ["node_modules", "dist"]
+}

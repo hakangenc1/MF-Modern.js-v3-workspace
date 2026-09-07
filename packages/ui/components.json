@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "rsc": false,
+  "tsx": true,
+  "tailwind": {
+    "config": "",
+    "css": "src/styles.css",
+    "baseColor": "neutral",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "iconLibrary": "lucide",
+  "aliases": {
+    "components": "@bank/ui/components",
+    "utils": "@bank/ui/lib/utils",
+    "ui": "@bank/ui/components/ui",
+    "hooks": "@bank/ui/hooks",
+    "lib": "@bank/ui/lib"
+  }
+}

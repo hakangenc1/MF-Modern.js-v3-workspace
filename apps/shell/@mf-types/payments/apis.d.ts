@@ -1,0 +1,3 @@
+
+    export type RemoteKeys = 'payments/TransferView' | 'payments/PayeesView' | 'payments/ActivityView' | 'payments/QuickTransferCard' | 'payments/data';
+    type PackageType<T> = T extends 'payments/data' ? typeof import('payments/data') :T extends 'payments/QuickTransferCard' ? typeof import('payments/QuickTransferCard') :T extends 'payments/ActivityView' ? typeof import('payments/ActivityView') :T extends 'payments/PayeesView' ? typeof import('payments/PayeesView') :T extends 'payments/TransferView' ? typeof import('payments/TransferView') :any;

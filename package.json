@@ -1,0 +1,38 @@
+{
+  "name": "mfe-2.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@9.15.4",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "build": "pnpm -r --workspace-concurrency=1 build",
+    "start": "node scripts/start.mjs",
+    "typecheck": "pnpm -r typecheck",
+    "clean": "pnpm -r exec node -e \"require('fs').rmSync('build',{recursive:true,force:true})\""
+  },
+  "devDependencies": {
+    "typescript": "5.9.3"
+  },
+  "pnpm": {
+    "overrides": {
+      "@rspack/core": "2.1.8",
+      "react-server-dom-rspack": "0.0.2",
+      "@module-federation/runtime-tools": "2.8.2",
+      "@module-federation/runtime": "2.8.2",
+      "@module-federation/sdk": "2.8.2",
+      "@module-federation/enhanced": "2.8.2",
+      "@module-federation/node": "2.7.36",
+      "@module-federation/bridge-react": "2.8.2",
+      "@module-federation/bridge-shared": "2.8.2",
+      "@module-federation/dts-plugin": "2.8.2",
+      "@module-federation/managers": "2.8.2",
+      "@module-federation/manifest": "2.8.2",
+      "@module-federation/rspack": "2.8.2",
+      "react": "18.3.1",
+      "react-dom": "18.3.1"
+    }
+  }
+}
