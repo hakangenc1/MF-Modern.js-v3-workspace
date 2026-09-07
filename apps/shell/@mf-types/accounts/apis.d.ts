@@ -1,3 +1,0 @@
-
-    export type RemoteKeys = 'accounts/AccountsView' | 'accounts/AccountDetailView' | 'accounts/widgets' | 'accounts/data';
-    type PackageType<T> = T extends 'accounts/data' ? typeof import('accounts/data') :T extends 'accounts/widgets' ? typeof import('accounts/widgets') :T extends 'accounts/AccountDetailView' ? typeof import('accounts/AccountDetailView') :T extends 'accounts/AccountsView' ? typeof import('accounts/AccountsView') :any;
